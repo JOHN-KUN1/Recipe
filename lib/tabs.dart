@@ -11,18 +11,18 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  String _activeScreen = 'home-screen';
+  
   int _currentIndex = 0;
   Widget? _content;
 
   @override
   Widget build(BuildContext context) {
     if (_currentIndex == 0) {
-      _content = HomeScreen();
+      _content = const HomeScreen();
     } else if (_currentIndex == 1){
-      _content = SearchScreen();
+      _content = const SearchScreen();
     }else{
-      _content = FavoritesScreen();
+      _content = const FavoritesScreen();
     }
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -34,9 +34,9 @@ class _TabsScreenState extends State<TabsScreen> {
           });
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon:Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon:Icon(Icons.favorite),label: 'Favorite'),
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          const BottomNavigationBarItem(icon:Icon(Icons.search), label: 'Search'),
+          const BottomNavigationBarItem(icon:Icon(Icons.favorite),label: 'Favorite'),
         ],
       ),
       appBar: AppBar(

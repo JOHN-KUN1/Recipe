@@ -280,6 +280,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           mealImage: _allMeals[index]['image'].toString(),
                           cookTime: _allMeals[index]['readyInMinutes']
                               .toString(),
+                          mealId: _allMeals[index]['id'].toString(),
+                          mealIngredients: _allMeals[index]['extendedIngredients'],
+                          mealInstructions: _allMeals[index]['instructions'].toString(),
                         );
                       },
                     ),

@@ -1,44 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/detail_screen.dart';
 
-class MealDisplay extends StatelessWidget {
-  const MealDisplay({
+class MealSearchDisplay extends StatelessWidget {
+  const MealSearchDisplay({
     super.key,
     required this.mealName,
-    required this.mealRating,
     required this.mealImage,
-    required this.cookTime,
     required this.mealId,
-    required this.mealIngredients,
-    required this.mealInstructions,
   });
 
   final String mealName;
-  final String mealRating;
   final String mealImage;
-  final String cookTime;
   final String mealId;
-  final String mealInstructions;
-  final List mealIngredients;
 
   @override
   Widget build(BuildContext context) {
     // todo: fix the problem of the card not expanding to show all its contents
     return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailScreen(
-              image: mealImage,
-              ingredients: mealIngredients,
-              instructions: mealInstructions,
-              mealId: mealId,
-              mealName: mealName,
-            ),
-          ),
-        );
-      },
+      // onTap: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => DetailScreen(
+      //         image: mealImage,
+      //         ingredients: mealIngredients,
+      //         instructions: mealInstructions,
+      //         mealId: mealId,
+      //         mealName: mealName,
+      //       ),
+      //     ),
+      //   );
+      // },
       child: Card(
         color: Colors.white,
         elevation: 7,
@@ -99,10 +91,6 @@ class MealDisplay extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Text(
-                        '$cookTime min',
-                        style: TextStyle(color: Colors.grey),
-                      ),
                       Expanded(
                         child: SizedBox(
                           width: double.infinity,
@@ -112,10 +100,6 @@ class MealDisplay extends StatelessWidget {
                         Icons.health_and_safety_outlined,
                         color: Colors.lightGreen,
                         size: 16,
-                      ),
-                      Text(
-                        mealRating,
-                        style: TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),

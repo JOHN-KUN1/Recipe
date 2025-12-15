@@ -149,9 +149,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  widget.instructions,
-                                  textAlign: TextAlign.center,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                  child: Text(
+                                    widget.instructions,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ],
                             ),

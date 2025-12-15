@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'dart:convert';
 
 import 'package:recipe_app/widgets/meal_display.dart';
@@ -50,14 +51,25 @@ class _HomeScreenState extends State<HomeScreen> {
       future: _loadRandomMeals,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return Center(
+            child: Column(
+              mainAxisSize: .min,
+              children: [
+                LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.lightGreen,
+                  size: 50,
+                ),
+                const Text('Loading...',style: TextStyle(color: Colors.black),)
+              ],
+            ),
+          );
         } else {
           return Center(
             child: Column(
               mainAxisSize: .max,
               crossAxisAlignment: .start,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsetsGeometry.only(
                     bottom: 12,
                     top: 15,
@@ -95,15 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               loadRandomMeals();
                             });
                           },
-                          child: Text(
-                            'All',
-                            style: TextStyle(
-                              color: _allCategoriesSelected
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           style: TextButton.styleFrom(
                             shadowColor: _allCategoriesSelected
                                 ? Colors.greenAccent
@@ -112,6 +115,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: _allCategoriesSelected
                                 ? Colors.lightGreen
                                 : Colors.white,
+                          ),
+                          child: Text(
+                            'All',
+                            style: TextStyle(
+                              color: _allCategoriesSelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -128,15 +140,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               loadRandomMeals(category: 'gluten free');
                             });
                           },
-                          child: Text(
-                            'Gluten Free',
-                            style: TextStyle(
-                              color: _glutenFreeCategorySelected
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           style: TextButton.styleFrom(
                             elevation: 4,
                             shadowColor: _glutenFreeCategorySelected
@@ -145,6 +148,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: _glutenFreeCategorySelected
                                 ? Colors.lightGreen
                                 : Colors.white,
+                          ),
+                          child: Text(
+                            'Gluten Free',
+                            style: TextStyle(
+                              color: _glutenFreeCategorySelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -161,15 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               loadRandomMeals(category: 'vegan');
                             });
                           },
-                          child: Text(
-                            'Vegan',
-                            style: TextStyle(
-                              color: _veganCategorySelected
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           style: TextButton.styleFrom(
                             elevation: 4,
                             shadowColor: _veganCategorySelected
@@ -178,6 +181,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: _veganCategorySelected
                                 ? Colors.lightGreen
                                 : Colors.white,
+                          ),
+                          child: Text(
+                            'Vegan',
+                            style: TextStyle(
+                              color: _veganCategorySelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -194,15 +206,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               loadRandomMeals(category: 'vegetarian');
                             });
                           },
-                          child: Text(
-                            'Vegetarian',
-                            style: TextStyle(
-                              color: _vegetarianCategorySelected
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           style: TextButton.styleFrom(
                             elevation: 4,
                             shadowColor: _vegetarianCategorySelected
@@ -211,6 +214,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: _vegetarianCategorySelected
                                 ? Colors.lightGreen
                                 : Colors.white,
+                          ),
+                          child: Text(
+                            'Vegetarian',
+                            style: TextStyle(
+                              color: _vegetarianCategorySelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -227,15 +239,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               loadRandomMeals(category: 'ketogenic');
                             });
                           },
-                          child: Text(
-                            'Ketogenic',
-                            style: TextStyle(
-                              color: _ketogenicCategorySelected
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           style: TextButton.styleFrom(
                             shadowColor: _ketogenicCategorySelected
                                 ? Colors.greenAccent
@@ -245,12 +248,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? Colors.lightGreen
                                 : Colors.white,
                           ),
+                          child: Text(
+                            'Ketogenic',
+                            style: TextStyle(
+                              color: _ketogenicCategorySelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(bottom: 10, left: 10),
                   child: Text(
                     'Popular',
@@ -266,12 +278,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     child: GridView.builder(
                       itemCount: 10,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.6,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                        crossAxisCount: 2,
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 0.6,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 5,
+                            crossAxisCount: 2,
+                          ),
                       itemBuilder: (context, index) {
                         return MealDisplay(
                           mealName: _allMeals[index]['title'].toString(),
@@ -281,8 +294,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           cookTime: _allMeals[index]['readyInMinutes']
                               .toString(),
                           mealId: _allMeals[index]['id'].toString(),
-                          mealIngredients: _allMeals[index]['extendedIngredients'],
-                          mealInstructions: _allMeals[index]['instructions'].toString(),
+                          mealIngredients:
+                              _allMeals[index]['extendedIngredients'],
+                          mealInstructions: _allMeals[index]['instructions']
+                              .toString(),
                         );
                       },
                     ),

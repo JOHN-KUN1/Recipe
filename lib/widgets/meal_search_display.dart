@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/screens/detail_screen.dart';
+import 'package:recipe_app/screens/search_meal_detail.dart';
 
 class MealSearchDisplay extends StatelessWidget {
   const MealSearchDisplay({
@@ -17,20 +18,18 @@ class MealSearchDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     // todo: fix the problem of the card not expanding to show all its contents
     return InkWell(
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => DetailScreen(
-      //         image: mealImage,
-      //         ingredients: mealIngredients,
-      //         instructions: mealInstructions,
-      //         mealId: mealId,
-      //         mealName: mealName,
-      //       ),
-      //     ),
-      //   );
-      // },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SearchMealDetail(
+              image: mealImage,
+              mealId: mealId,
+              mealName: mealName,
+            ),
+          ),
+        );
+      },
       child: Card(
         color: Colors.white,
         elevation: 7,
@@ -83,25 +82,6 @@ class MealSearchDisplay extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          width: double.infinity,
-                        ),
-                      ),
-                      Icon(
-                        Icons.health_and_safety_outlined,
-                        color: Colors.lightGreen,
-                        size: 16,
-                      ),
-                    ],
                   ),
                 ),
               ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:recipe_app/widgets/meal_display.dart';
+import 'package:recipe_app/widgets/meal_search_display.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -109,14 +110,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisCount: 2,
                               ),
                           itemBuilder: (context, index) {
-                            return MealDisplay(
+                            return MealSearchDisplay(
                               mealName: _allMeals[index]['title'].toString(),
-                              mealRating: '5',
                               mealImage: _allMeals[index]['image'].toString(),
-                              cookTime: '6',
                               mealId: _allMeals[index]['id'].toString(),
-                              mealIngredients: [],
-                              mealInstructions: 'i',
                             );
                           },
                         ),

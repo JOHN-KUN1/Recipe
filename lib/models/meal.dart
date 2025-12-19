@@ -16,6 +16,6 @@ class Meal {
   final String cookTime;
   final int mealId;
   final String mealInstructions;
-  final List mealIngredients;
+  final String mealIngredients;
   final int isFavorite;
 }

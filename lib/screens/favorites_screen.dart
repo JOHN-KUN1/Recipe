@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:recipe_app/providers/favorite_meal_provider.dart';
+import 'package:json_repair_flutter/json_repair_flutter.dart';
 import 'dart:convert';
 
 import 'package:recipe_app/widgets/meal_display.dart';
@@ -21,13 +22,14 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
 
   @override
   void initState() {
-    super.initState();
     _loadFavoriteMeals = ref.read(favoriteMealsProvider.notifier).getAllFavorites();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final allFavoriteMeals = ref.watch(favoriteMealsProvider);
+    print('-----------${repairJson(allFavoriteMeals[0].mealIngredients)}');
     return FutureBuilder(
       future: _loadFavoriteMeals,
       builder: (context, snapshot) {
@@ -83,7 +85,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
                               .toString(),
                           mealId: allFavoriteMeals[index].mealId.toString(),
                           mealIngredients:
-                              allFavoriteMeals[index].mealIngredients,
+                              repairJson(allFavoriteMeals[index].mealIngredients),
                           mealInstructions: allFavoriteMeals[index].mealInstructions
                               .toString(),
                         );

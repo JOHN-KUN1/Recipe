@@ -105,7 +105,7 @@ class _MealDisplayState extends ConsumerState<MealDisplay>
                                       mealImage: widget.mealImage,
                                       cookTime: widget.cookTime,
                                       mealId: int.tryParse(widget.mealId)!,
-                                      mealIngredients: widget.mealIngredients,
+                                      mealIngredients: widget.mealIngredients.toString(),
                                       mealInstructions: widget.mealInstructions,
                                       isFavorite: 1,
                                     ),

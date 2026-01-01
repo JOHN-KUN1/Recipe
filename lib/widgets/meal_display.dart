@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/models/meal.dart';
@@ -40,7 +42,7 @@ class _MealDisplayState extends ConsumerState<MealDisplay>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
     _animation = Tween<double>(begin: 1.0, end: 1.2).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.bounceOut),
@@ -105,7 +107,7 @@ class _MealDisplayState extends ConsumerState<MealDisplay>
                                       mealImage: widget.mealImage,
                                       cookTime: widget.cookTime,
                                       mealId: int.tryParse(widget.mealId)!,
-                                      mealIngredients: widget.mealIngredients.toString(),
+                                      mealIngredients: jsonEncode(widget.mealIngredients),
                                       mealInstructions: widget.mealInstructions,
                                       isFavorite: 1,
                                     ),
@@ -154,7 +156,7 @@ class _MealDisplayState extends ConsumerState<MealDisplay>
                   maxLines: 3,
                   widget.mealName,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
                   ),

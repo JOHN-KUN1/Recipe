@@ -11,10 +11,10 @@ Future<Database> getDatabase() async {
     // Set the path to the database. Note: Using the `join` function from the
     // `path` package is best practice to ensure the path is correctly
     // constructed for each platform.
-    join(await getDatabasesPath(), 'new_favorite_meals.db'),
+    join(await getDatabasesPath(), 'my_favorite_meals.db'),
     onCreate: (db, version) {
       return db.execute(
-        'CREATE TABLE favs(id INTEGER PRIMARY KEY, name TEXT, rating TEXT, image TEXT, time TEXT, instructions TEXT,ingredients TEXT, isFavorite INTEGER)',
+        'CREATE TABLE myfavsmeals(id INTEGER PRIMARY KEY, name TEXT, rating TEXT, image TEXT, time TEXT, instructions TEXT,ingredients TEXT, isFavorite INTEGER)',
       );
     },
     version: 1,
@@ -38,14 +38,14 @@ class MyNotifier extends Notifier<List<Meal>> {
     state = [...state, newMeal];
 
     final db = await getDatabase();
-    await db.insert('favs', {
+    await db.insert('myfavsmeals', {
       'id': newMeal.mealId,
       'name': newMeal.mealName,
       'rating': newMeal.mealRating,
       'image': newMeal.mealImage,
       'time': newMeal.cookTime,
       'instructions': newMeal.mealInstructions,
-      'ingredients': newMeal.mealIngredients.toString(),
+      'ingredients': newMeal.mealIngredients,
       'isFavorite': newMeal.isFavorite,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
@@ -54,7 +54,7 @@ class MyNotifier extends Notifier<List<Meal>> {
     //print('----------------called');
     final db = await getDatabase();
 
-    final allFavs = await db.query('favs');
+    final allFavs = await db.query('myfavsmeals');
 
     //print('-----------${allFavs[0]['ingredients']}');
 
@@ -74,6 +74,7 @@ class MyNotifier extends Notifier<List<Meal>> {
         ),
       );
     }
+    
     //print('---------i--$favorites');
     state = favorites;
     return favorites;

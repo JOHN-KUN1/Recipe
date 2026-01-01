@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:json_repair_flutter/json_repair_flutter.dart';
 import 'package:recipe_app/widgets/ingredients_display.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -22,8 +25,28 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
+    var formattedIngredients = [];
+    for (var i = 0; i < widget.ingredients.length; i++) {  
+      var ingredient = widget.ingredients[i] as Map;
+      var amount = ingredient['measures']['metric']['amount'];
+      var unitShort = ingredient['measures']['metric']['unitShort'];
+      var image = ingredient['image'];
+      formattedIngredients.add(
+        {
+          'amount' : amount,
+          'unitShort' : unitShort,
+          'image' : image
+        }
+      );
+    }
+  
+    var a = widget.ingredients[0] as Map;
+    print('-------------${a['measures']}');
+    //cprint('------------${jsonDecode(repairJson(jsonEncode(widget.ingredients.toString())))[0]['measures']['metric']}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
@@ -122,12 +145,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                     padding: const EdgeInsets.only(left: 10.0),
                                     child: Row(
                                       children: [
-                                        for (final item in widget.ingredients)
+                                        for (var item  in formattedIngredients)
+                                          
                                           IngredientsDisplay(
                                             ingredientPic:
                                                 'https://img.spoonacular.com/ingredients_100x100/${item['image']}',
                                             ingredientMeasurement:
-                                                '${item['measures']['metric']['amount']}${item['measures']['metric']['unitShort']}',
+                                                '${item['amount']}${item['unitShort']}',
                                           ),
                                         const SizedBox(
                                           width: 5,
